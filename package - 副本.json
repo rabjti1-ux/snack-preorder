@@ -1,0 +1,17 @@
+{
+  "name": "snack-preorder",
+  "version": "1.0.0",
+  "description": "零食预订：提前预订、到店自提、线下付款。客户端 + 商家端，同一套后台。",
+  "private": true,
+  "main": "server/server.js",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "node --test test/api.test.js",
+    "admin": "node server/cli.js",
+    "clear-demo": "node server/cli.js clear-demo"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,95 @@
+plugins {
+    id 'com.android.application'
+}
+
+// 读取 android/app-config.properties
+def cfg = new Properties()
+def cfgFile = rootProject.file('app-config.properties')
+if (cfgFile.exists()) {
+    cfgFile.withReader('UTF-8') { cfg.load(it) }
+}
+def clean = { String s -> (s ?: '').trim().replace('\\', '').replace('"', '') }
+// 打包时可用 -PserverUrl=... 覆盖配置文件里的地址
+def serverUrl = clean(project.findProperty('serverUrl') ?: cfg.getProperty('SERVER_URL', ''))
+// 没填地址（或还是示例文字）时留空，APP 第一次打开会让用户输入
+if (serverUrl == 'none' || serverUrl.contains('请改成')) serverUrl = ''
+def customerName = clean(cfg.getProperty('CUSTOMER_APP_NAME', '零食预订'))
+def merchantName = clean(cfg.getProperty('MERCHANT_APP_NAME', '商家后台'))
+// GitHub Actions 的打包序号做版本号，新包可以直接覆盖安装旧包
+def buildNumber = (System.getenv('GITHUB_RUN_NUMBER') ?: '1') as Integer
+def versionPrefix = clean(cfg.getProperty('VERSION_NAME', '1.0'))
+
+android {
+    namespace = 'com.snackpreorder.app'
+    compileSdk = 35
+
+    defaultConfig {
+        minSdk = 24
+        targetSdk = 34
+        versionCode = buildNumber
+        versionName = "${versionPrefix}.${buildNumber}"
+        buildConfigField 'String', 'SERVER_URL', "\"${serverUrl}\""
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    // 两个 APP：客户版打开店铺首页，商家版打开 /admin
+    flavorDimensions.add('role')
+    productFlavors {
+        customer {
+            dimension = 'role'
+            applicationId = 'com.snackpreorder.customer'
+            resValue 'string', 'app_name', customerName
+            buildConfigField 'String', 'START_PATH', '"/"'
+            buildConfigField 'boolean', 'IS_MERCHANT', 'false'
+        }
+        merchant {
+            dimension = 'role'
+            applicationId = 'com.snackpreorder.merchant'
+            resValue 'string', 'app_name', merchantName
+            buildConfigField 'String', 'START_PATH', '"/admin"'
+            buildConfigField 'boolean', 'IS_MERCHANT', 'true'
+        }
+    }
+
+    signingConfigs {
+        release {
+            def ks = System.getenv('SNACK_KEYSTORE_FILE')
+            if (ks) {
+                // 在 GitHub Secrets 里配置了自己的签名时使用
+                storeFile = file(ks)
+                storePassword = System.getenv('SNACK_KEYSTORE_PASSWORD')
+                keyAlias = System.getenv('SNACK_KEY_ALIAS')
+                keyPassword = System.getenv('SNACK_KEY_PASSWORD')
+            } else {
+                // 默认签名：保证每次打出的包签名一致，新版能覆盖安装旧版
+                storeFile = file('snack-shared.keystore')
+                storePassword = 'snack-preorder'
+                keyAlias = 'snack'
+                keyPassword = 'snack-preorder'
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled = false
+            signingConfig = signingConfigs.release
+        }
+        debug {
+            signingConfig = signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="page_bg">#ECEEF2</color>
+    <color name="bar_bg">#FFFFFF</color>
+
+    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:colorPrimary">#DC3626</item>
+        <item name="android:colorAccent">#DC3626</item>
+        <item name="android:statusBarColor">@color/bar_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@color/page_bg</item>
+    </style>
+</resources>

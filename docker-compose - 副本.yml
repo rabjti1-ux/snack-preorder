@@ -1,0 +1,17 @@
+services:
+  snack:
+    build: .
+    container_name: snack-preorder
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      SHOP_TIMEZONE: Asia/Shanghai
+      ADMIN_USERNAME: admin
+      # 商家密码（至少 8 位）。留空会随机生成，用 docker compose logs 查看
+      ADMIN_PASSWORD: ""
+      SEED_DEMO: "true"
+      # 前面有 Nginx 时改为 "true"
+      TRUST_PROXY: "false"
+    volumes:
+      - ./data:/app/data

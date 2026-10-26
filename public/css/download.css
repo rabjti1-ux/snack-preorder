@@ -1,0 +1,43 @@
+/* 下载页 */
+.dl { max-width: 560px; margin: 0 auto; padding: 0 0 40px; min-height: 100vh; }
+
+.dl-head { background: var(--surface); padding: 28px 20px 22px; text-align: center; }
+.dl-icon { width: 84px; height: 84px; border-radius: 20px; margin: 0 auto 12px; box-shadow: 0 4px 14px rgba(16, 18, 22, 0.15); }
+.dl-head h1 { font-size: 24px; font-weight: 800; }
+.dl-head p { color: var(--ink-2); margin-top: 6px; }
+
+.dl-seg { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 14px 16px 0; padding: 4px; border-radius: 12px; background: #dfe2e8; }
+.dl-seg button { min-height: 44px; border: 0; border-radius: 9px; background: transparent; font-size: 16px; font-weight: 600; color: var(--ink-2); cursor: pointer; }
+.dl-seg button.on { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); }
+
+.dl-card { background: var(--surface); margin: 12px 12px 0; border-radius: var(--radius); padding: 18px 16px; }
+.dl-card .btn { width: 100%; }
+.dl-card .note { font-size: 14px; color: var(--ink-2); margin-top: 12px; line-height: 1.6; }
+.dl-card .meta { font-size: 13px; color: var(--ink-3); margin-top: 8px; text-align: center; }
+
+.steps-list { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+.steps-list li { position: relative; padding: 0 0 18px 44px; counter-increment: step; }
+.steps-list li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: #fff;
+  font-family: var(--num); font-weight: 700; font-size: 16px; display: grid; place-items: center;
+}
+.steps-list li:last-child { padding-bottom: 4px; }
+.steps-list .s-title { font-weight: 700; font-size: 17px; }
+.steps-list .s-sub { color: var(--ink-2); font-size: 14px; margin-top: 2px; }
+.steps-list .btn { margin-top: 10px; }
+.share-ico { display: inline-block; width: 22px; height: 22px; vertical-align: -5px; color: var(--blue); }
+
+.dl-foot { text-align: center; margin-top: 18px; font-size: 14px; color: var(--ink-3); }
+.dl-foot a { color: var(--ink-2); }
+
+/* 微信等 APP 内置浏览器：遮罩提示去浏览器打开 */
+.inapp {
+  position: fixed; inset: 0; z-index: 300; background: rgba(16, 18, 22, 0.96); color: #fff;
+  padding: 24px 28px; text-align: right;
+}
+.inapp svg { width: 92px; height: 92px; margin-right: -6px; }
+.inapp .ia-text { text-align: left; font-size: 20px; line-height: 1.6; margin-top: 8px; }
+.inapp .ia-text b { color: var(--tag); }
+.inapp .ia-sub { text-align: left; font-size: 15px; opacity: 0.8; margin-top: 14px; }
+.inapp button { display: block; margin: 28px auto 0 0; background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 10px; padding: 10px 16px; font-size: 15px; }

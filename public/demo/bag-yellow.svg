@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><rect width="240" height="240" fill="#fbf6e2"/>
+<ellipse cx="120" cy="214" rx="60" ry="7" fill="#000" opacity=".08"/>
+<path d="M60 44L60 40L70 48L80 40L90 48L100 40L110 48L120 40L130 48L140 40L150 48L160 40L170 48L180 40L180 44 L186 120 L180 196L180 200L170 192L160 200L150 192L140 200L130 192L120 200L110 192L100 200L90 192L80 200L70 192L60 200L60 196 L54 120Z" fill="#f2c230"/>
+<circle cx="120" cy="124" r="40" fill="#2457d6"/>
+<ellipse cx="108" cy="116" rx="16" ry="10" fill="#f6d27a" transform="rotate(-20 108 116)"/>
+<ellipse cx="132" cy="132" rx="16" ry="10" fill="#efc163" transform="rotate(15 132 132)"/>
+<rect x="76" y="64" width="88" height="12" rx="6" fill="#fff" opacity=".85"/></svg>

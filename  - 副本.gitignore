@@ -1,0 +1,15 @@
+# 数据库和上传的图片（含客户联系方式），不要上传到 GitHub
+data/
+.env
+node_modules/
+*.log
+.DS_Store
+test/shots/
+tmp-e2e/
+# 安卓打包产生的文件
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+test/payshots/
+tmp-pay/
